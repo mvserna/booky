@@ -16,6 +16,10 @@
 
  */
 
+main {
+  margin: 5rem;
+}
+
 #barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
   display: none;
 }
@@ -24,3 +28,4 @@
   width: 100%;
   height: auto;
 }
+

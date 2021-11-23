@@ -1,7 +1,7 @@
 import React from "react"
 
 const LandingPage = (props) => {
-  
+
   return (
     <div className="landing grid-container">
       <div className="grid-x">

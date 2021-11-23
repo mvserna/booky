@@ -2,3 +2,14 @@
 
 </div>
 
+<% unless flash.empty? %>
+<div class="grid-container">
+  <div class="grid-x">
+    <%- flash.each do |key, value| -%>
+      <div class="cell small-12 text-center flash flash-<%= key %>">
+        <%= value %>
+      </div>
+    <%- end -%>
+  </div>
+</div>
+<% end %>

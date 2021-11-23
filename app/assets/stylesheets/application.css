@@ -18,11 +18,17 @@
 
 main {
   margin: 10rem 5rem;
-  display: flex;
 }
 
 .landing p {
   height: 2000px;
+}
+
+.devise {
+  max-width: 1000px;
+  width: 50%;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
 }
 
 .main.active {
@@ -62,7 +68,9 @@ main {
 
 .nav-menu {
   background-color: rgb(211, 241, 255);
-  width: 250px;
+  width: 20vw;
+  max-width: 250px;
+  min-width: 110px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -117,4 +125,5 @@ main {
 
 span {
   margin-left: 16px;
+  margin-top: 5px;
 }

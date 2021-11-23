@@ -23,7 +23,7 @@ const SidebarTiles = (props) => {
   ]
 
   const sidebarLinks = sidebarData.map( (item, index) => {
-    if (location.pathname.includes("/users/")) {
+    if (location.pathname.includes("/users")) {
       return (
         <li key={index} className={item.cName}>
           <a href={item.path} >

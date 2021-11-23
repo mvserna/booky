@@ -35,6 +35,13 @@ main {
   padding-left: 250px;
 }
 
+.flash-container {
+  margin-top: 80px;
+  left: 42.5vw;
+  position: absolute;
+  width: 15vw;
+}
+
 #barcode-scanner canvas.drawingBuffer, #barcode-scanner video.drawingBuffer {
   display: none;
 }

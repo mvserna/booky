@@ -1,35 +1,41 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Switch, Route, Link } from "react-router-dom"
-import * as FontAwesome from 'react-icons/fa'
-import * as AntDesign from 'react-icons/ai'
+import * as FontAwesome from "react-icons/fa"
+import * as AntDesign from "react-icons/ai"
 
 import LandingPage from "./LandingPage"
-import { SidebarData } from "./SidebarData"
+import SidebarTiles from "./SidebarTiles"
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [sidebar, setSidebar] = useState(false)
-
   const showSidebar = () => setSidebar(!sidebar)
-
   const navMenuStatus = sidebar ? "active" : "inactive"
 
-  const sidebarLinks = SidebarData.map( (item, index) => {
-    return (
-      <li key={index} className={item.cName}>
-        <Link to={item.path}>
-          {item.icon}
-          <span>{item.title}</span>
-        </Link>
-      </li>
-    )
-  })
+  const [authenticated, setAuthenticated] = useState(false)
 
-  
-  
+  const fetchAuthentication = async () => {
+    try {
+      const response = await fetch("/api/v1/users", {
+        credentials: "same-origin",
+      })
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`)
+      }
+      const responseBody = await response.json()
+      setAuthenticated(responseBody.authenticated)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchAuthentication()
+  }, [])
+
   return (
     <div>
       <div className="navbar">
-        <Link to="#" className='menu-bars'>
+        <Link to="#" className="menu-bars">
           <FontAwesome.FaBars onClick={showSidebar} />
         </Link>
       </div>
@@ -40,9 +46,13 @@ const NavBar = () => {
               <AntDesign.AiOutlineClose />
             </Link>
           </li>
-          {sidebarLinks}
+          <SidebarTiles
+            location={props.location}
+            authenticated={authenticated}
+            showSidebar={showSidebar}
+          />
         </ul>
-      </nav>      
+      </nav>
 
       <main className={`main ${navMenuStatus}`}>
         <Switch>

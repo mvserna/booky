@@ -1,4 +1,18 @@
+<% unless flash.empty? %>
+  <div class="grid-container flash-container">
+    <div class="grid-x callout success" data-closable>
+      <button class="close-button cell small-2" aria-label="Close alert" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%- flash.each do |key, value| -%>
+        <div class="cell small-10 text-center flash flash-<%= key %>">
+          <%= value %>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+<% end %> 
+
 <div id="app">
 
 </div>
-

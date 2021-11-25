@@ -1,7 +1,7 @@
 require_relative './work'
 
 class OpenLibrary::Edition
-  attr_reader :title, :isbn, :open_library_edition_key, :open_library_works_key, :publish_date, :first_sentence, :body
+  attr_reader :title, :isbn, :open_library_edition_key, :open_library_works_key, :publish_date, :first_sentence, :body, :covers, :description
   
   def initialize(book_key)
     if !book_key.include?("books/")
@@ -20,6 +20,14 @@ class OpenLibrary::Edition
     if body["first_sentence"]
       @first_sentence = body["first_sentence"]["value"]
     end
+    if body["covers"]
+      @covers = body["covers"]
+    else
+      @covers = []
+    end
+    if body["description"]
+      @description = body["description"]["value"]
+    end
   end
 
   def self.isbn(isbn)
@@ -34,5 +42,4 @@ class OpenLibrary::Edition
     body = JSON.parse(response.body)
     body["name"]
   end
-
 end

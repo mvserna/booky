@@ -4,7 +4,9 @@ import * as FontAwesome from "react-icons/fa"
 import * as AntDesign from "react-icons/ai"
 
 import LandingPage from "./LandingPage"
-import SidebarTiles from "./SidebarTiles"
+import SidebarContainer from "./SidebarContainer"
+import BooksIndexPage from "./BooksIndexPage"
+import fetchAuthentication from "./fetchAuthentication"
 
 const NavBar = (props) => {
   const [sidebar, setSidebar] = useState(false)
@@ -13,23 +15,8 @@ const NavBar = (props) => {
 
   const [authenticated, setAuthenticated] = useState(false)
 
-  const fetchAuthentication = async () => {
-    try {
-      const response = await fetch("/api/v1/users", {
-        credentials: "same-origin",
-      })
-      if (!response.ok) {
-        throw new Error(`${response.status}: ${response.statusText}`)
-      }
-      const responseBody = await response.json()
-      setAuthenticated(responseBody.authenticated)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   useEffect(() => {
-    fetchAuthentication()
+    fetchAuthentication(setAuthenticated)
   }, [])
 
   return (
@@ -46,7 +33,7 @@ const NavBar = (props) => {
               <AntDesign.AiOutlineClose />
             </Link>
           </li>
-          <SidebarTiles
+          <SidebarContainer
             location={props.location}
             authenticated={authenticated}
             showSidebar={showSidebar}
@@ -57,6 +44,7 @@ const NavBar = (props) => {
       <main className={`main ${navMenuStatus}`}>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/books" component={BooksIndexPage} authenticated={authenticated}/>
         </Switch>
       </main>
     </div>

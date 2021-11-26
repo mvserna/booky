@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+user = User.create(email: "test@test.com", encrypted_password: "testing", password: "testing")
+
+for i in 0..9 do
+  book = Book.retrieve("books/OL735461#{i}M")
+  book.users << user
+  book.save
+end

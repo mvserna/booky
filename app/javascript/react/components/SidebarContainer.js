@@ -4,7 +4,7 @@ import * as FontAwesome from "react-icons/fa"
 import * as AntDesign from 'react-icons/ai'
 import * as GameIcons from 'react-icons/gi'
 
-const SidebarTiles = (props) => {
+const SidebarContainer = (props) => {
   const { location, authenticated, showSidebar } = props
   
   const sidebarData = [
@@ -16,7 +16,7 @@ const SidebarTiles = (props) => {
     },
     {
       title: "Books",
-      path: "/works",
+      path: "/books",
       icon: <GameIcons.GiBookshelf />,
       cName: "nav-text"
     }
@@ -77,4 +77,4 @@ const SidebarTiles = (props) => {
   )
 }
 
-export default SidebarTiles
+export default SidebarContainer

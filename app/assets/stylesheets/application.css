@@ -16,12 +16,12 @@
 
  */
 
-main {
-  margin: 10rem 5rem;
+body {
+  background-color: #131325;
 }
 
-.landing p {
-  height: 2000px;
+main {
+  margin: 10rem 5rem;
 }
 
 .devise {
@@ -33,6 +33,7 @@ main {
 
 .main.active {
   padding-left: 250px;
+  transition: 350ms;
 }
 
 .flash-container {
@@ -134,3 +135,34 @@ span {
   margin-left: 16px;
   margin-top: 5px;
 }
+
+.grid-y > .cell {
+  background-color: #FFFFFF;
+  box-shadow: 0.25rem 0.25rem 0.5rem white;
+  border: none;
+  color: #000000);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.grid-y > .grid-x > .cell {
+  perspective: 600px;
+  color: #3a2020;
+}
+  .author, .description {
+    color: #555555;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+
+  #book-tile-buttons {
+    padding: 0rem 2rem 0rem 6rem;
+  }
+
+  .cover {
+    height: 100px;
+  }
+    .cover img {
+      height: 15rem;
+    }

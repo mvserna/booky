@@ -4,7 +4,7 @@ require 'json'
 
 require_relative './open_library'
 
-class OpenLibrary::Search
+class Search
   include OpenLibrary
   
   attr_reader :parsed_response, :num_found, :results
@@ -17,10 +17,20 @@ class OpenLibrary::Search
     @results = parsed_response["docs"]
   end
 
-  def works
-    works = []
-    results.each { |result| works << OpenLibrary::Work.new(result) }
-    works
+  def books
+    results.map { |result| 
+      Book.new(
+        title: result.title,
+        author: result.author,
+        isbn: result.isbn,
+        publish_date: result.publish_date,
+        first_sentence: result.first_sentence,
+        edition_key: result.open_library_edition_key,
+        works_key: result.open_library_works_key,
+        cover: result.covers.first,
+        description: result.description
+      )
+    }
   end
 
 end

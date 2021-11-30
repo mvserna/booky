@@ -7,6 +7,7 @@ import LandingPage from "./LandingPage"
 import SidebarContainer from "./SidebarContainer"
 import BooksIndexPage from "./BooksIndexPage"
 import fetchAuthentication from "./fetchAuthentication"
+import SearchBar from "./SearchBar"
 
 const NavBar = (props) => {
   const [sidebar, setSidebar] = useState(false)
@@ -14,6 +15,12 @@ const NavBar = (props) => {
   const navMenuStatus = sidebar ? "active" : "inactive"
 
   const [authenticated, setAuthenticated] = useState(false)
+
+  const [search, setSearch] = useState({
+    redirect: false,
+    query: "",
+    results: []
+  })
 
   useEffect(() => {
     fetchAuthentication(setAuthenticated)
@@ -25,6 +32,7 @@ const NavBar = (props) => {
         <Link to="#" className="menu-bars">
           <FontAwesome.FaBars onClick={showSidebar} />
         </Link>
+        <SearchBar search={search} setSearch={setSearch} />
       </div>
       <nav className={`nav-menu ${navMenuStatus}`}>
         <ul className="nav-menu-items" onClick={showSidebar}>
@@ -45,6 +53,7 @@ const NavBar = (props) => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/books" component={BooksIndexPage} authenticated={authenticated}/>
+          <Route exact path="/search" component={LandingPage} />
         </Switch>
       </main>
     </div>

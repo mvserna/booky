@@ -64,6 +64,51 @@ main {
   z-index: 10;
 }
 
+.search-bar-container {
+  flex-grow: 4;
+  margin-right: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+  .search-bar {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 0;
+    margin: 0px 0 0 0;
+  }
+
+    #magnifying-glass {
+      width: 2rem;
+      height: 2rem;
+      margin: 0 0 1rem 0.5rem;
+      padding: 0;
+      position: absolute;
+      z-index: 20;
+      opacity: 25%;
+    }
+
+    #search-field {
+      display: flex;
+      border: 1px solid #dfe1e5;
+      border-radius: 20px;
+      height: 3rem;
+      width: 30vw;
+      padding-left: 50px;
+      padding-right: 50px;
+      z-index: 1;
+    }
+
+    #camera {
+      width: 2rem;
+      height: 2rem;
+      margin: 0 0 1rem calc(30vw - 3rem);
+      position: absolute;
+      z-index: 20;
+      opacity: 25%;
+    }
+
 .menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
@@ -140,7 +185,7 @@ span {
   background-color: #FFFFFF;
   box-shadow: 0.25rem 0.25rem 0.5rem white;
   border: none;
-  color: #000000);
+  color: #000000;
   font-size: 1.1rem;
   font-weight: 700;
 }

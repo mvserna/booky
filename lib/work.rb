@@ -1,5 +1,3 @@
-require 'pry'
-
 require_relative './search'
 
 class OpenLibrary::Work

@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   root "homes#index"
   
   resources :books, only: :index
-  resources :search, only: :index
+  resources :search, only: [:index, :show]
 
   namespace :api do
     namespace :v1 do
-      resources :books, only: :index
-      resources :search, only: [:create]
+      resources :books, only: [:index, :create]
+      resources :search, only: [:show, :create]
       resources :users, only: :index
     end
   end

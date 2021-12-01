@@ -8,6 +8,8 @@ import SidebarContainer from "./SidebarContainer"
 import BooksIndexPage from "./BooksIndexPage"
 import fetchAuthentication from "./fetchAuthentication"
 import SearchBar from "./SearchBar"
+import SearchIndexPage from "./SearchIndexPage"
+import SearchShowPage from "./SearchShowPage"
 
 const NavBar = (props) => {
   const [sidebar, setSidebar] = useState(false)
@@ -25,7 +27,7 @@ const NavBar = (props) => {
   useEffect(() => {
     fetchAuthentication(setAuthenticated)
   }, [])
-
+  
   return (
     <div>
       <div className="navbar">
@@ -52,8 +54,9 @@ const NavBar = (props) => {
       <main className={`main ${navMenuStatus}`}>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/books" component={BooksIndexPage} authenticated={authenticated}/>
-          <Route exact path="/search" component={LandingPage} />
+          <Route exact path="/books" component={BooksIndexPage} authenticated={authenticated} />
+          <Route exact path="/search" render={(props) => <SearchIndexPage results={search.results}/>} />
+          <Route exact path="/search/:id" component={SearchShowPage} />
         </Switch>
       </main>
     </div>

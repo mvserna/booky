@@ -1,6 +1,6 @@
 class Api::V1::SearchController < ApplicationController
   def create
-        
+    # isbn = params["query_string"].match( /[0-9]{10,13}/ )[0]
     search = Search.new(params["query_string"])
     results = search.results.take(24)
     results.map! do |work|
@@ -17,7 +17,7 @@ class Api::V1::SearchController < ApplicationController
 
   def show
     search = Search.new(params["id"])
-    edition_keys = search.results.first["seed"].take(24)
+    edition_keys = search.results.first["seed"].take(8)
     editions = []
     edition_keys.each do |edition_key|
       puts editions
@@ -43,7 +43,6 @@ class Api::V1::SearchController < ApplicationController
         editions << Edition.new(edition_key)
       end
     end
-    puts "Out of each #{editions}"
     render json: editions
   end
 end

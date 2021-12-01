@@ -28,6 +28,8 @@ const SearchBar = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    // const isbn = search.query.match( /[0-9]{10,13}/ )[0]
+    // const path = isbn ? `/api/v1/search/${isbn}` : ""
     const payload = JSON.stringify({
       query_string: search.query
     })

@@ -10,10 +10,12 @@ class Edition
     @body = OpenLibrary.get(book_key)
     @open_library_edition_key = body["key"] 
     @title = body["title"]
-    if body["isbn_13"].first
+    if body["isbn_13"]
       @isbn = body["isbn_13"].first
-    else
+    elsif body["isbn_10"]
       @isbn = body["isbn_10"].first
+    else
+      @isbn = "No ISBN provided"
     end
     @publish_date = body["publish_date"]
     if body["works"].first
@@ -27,21 +29,34 @@ class Edition
     else
       @covers = []
     end
-    if body["description"]
-      @description = body["description"]["value"]
-    end
   end
 
   def self.isbn(isbn)
     response = Faraday.get("https://openlibrary.org/isbn/#{isbn}.json")
     redirect = response.headers["location"]
     book_key = redirect.match( /OL\w+(?=\.)/ )[0]
-    OpenLibrary::Edition.new(book_key)
+    Edition.new(book_key)
   end
 
   def author
     response = Faraday.get("https://openlibrary.org#{body["authors"].first["key"]}.json")
     body = JSON.parse(response.body)
     body["name"]
+  end
+
+  def description
+    response = Faraday.get("https://openlibrary.org/#{open_library_works_key}.json")
+    if response.status == 303
+      redirect = response.headers["location"]
+      works_key = redirect.match( /OL\w+(?=\.)/ )[0]
+      response = Faraday.get("https://openlibrary.org/works/#{works_key}.json")
+    end
+    body = JSON.parse(response.body)
+    binding.pry
+    if body["description"]
+      return body["description"]["value"]
+    else
+      return "No description yet for this book!"
+    end
   end
 end

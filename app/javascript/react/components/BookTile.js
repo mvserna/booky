@@ -5,17 +5,15 @@ const BookTile = (props) => {
 
   return (
     <div className="cell card">
-      <div className="grid-container ">
+      <div className="grid-container card">
         <div className="grid-x grid-margin-x">
           <div className="cell small-2 cover">
             <img src={`https://covers.openlibrary.org/b/id/${cover}.jpg`} ></img>
           </div>
-          <div className="cell small-6 info">
+          <div className="cell auto info">
             <div className="title">{title}</div>
             <div className="author">{author}</div>
-            <div className="description">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ratione impedit temporibus maiores autem aperiam assumenda exercitationem, quisquam nobis esse.
-            </div>
+            <div className="description">{description}</div>
           </div>
           <div className="cell small-4 text-center actions">
             <div className="grid-y" id="book-tile-buttons">

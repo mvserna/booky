@@ -35,7 +35,8 @@ const SearchShowPage = (props) => {
   const addBookHandler = async (event) => {
       event.preventDefault()
       const payload = JSON.stringify({
-        book_key: event.currentTarget.id
+        book_key: event.currentTarget.id,
+        authors: props.location.state.authors
       })
       try {
         const response = await fetch("/api/v1/books", {
@@ -61,13 +62,13 @@ const SearchShowPage = (props) => {
   const SearchResultsComponents = editions.map((edition) => {
     
     return (
-      <div className="cell small-3 search-result" id={edition.open_library_edition_key} onClick={addBookHandler}>
+      <div className="cell small-3 search-result" id={edition.open_library_edition_key} onClick={addBookHandler} authors={edition.authors}>
         <SearchResultTile
           key={edition.open_library_edition_key}
           book={{
             cover: edition.covers[0],
             title: edition.title,
-            authors: ["Author Name Here"]
+            authors: props.location.state.authors
           }}
         />
       </div>
@@ -78,8 +79,7 @@ const SearchShowPage = (props) => {
     <div className="grid-container">
       <div className="grid-x">
         <div className="callout secondary search-results-container">
-          <h3>Top Search Results</h3>
-          <h4 className="subheader">Select the right work</h4>
+          <h3>Now, let's find the right book</h3>
           <div className="grid-container">
             <div className="grid-x grid-margin-x grid-padding-x">
               {SearchResultsComponents}

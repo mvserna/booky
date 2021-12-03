@@ -39,7 +39,7 @@ class Edition
   end
 
   def author
-    response = Faraday.get("https://openlibrary.org#{body["authors"].first["key"]}.json")
+    response = Faraday.get("https://openlibrary.org#{@body["authors"].first["key"]}.json")
     body = JSON.parse(response.body)
     body["name"]
   end
@@ -52,7 +52,6 @@ class Edition
       response = Faraday.get("https://openlibrary.org/works/#{works_key}.json")
     end
     body = JSON.parse(response.body)
-    binding.pry
     if body["description"]
       return body["description"]["value"]
     else

@@ -4,14 +4,16 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def create
-    book = Book.retrieve(params["book_key"])
-    book.users << current_user
-    already_exists = Book.find_by("edition_key = ?", book.edition_key)
+    already_exists = Book.find_by("edition_key = ?", params["book_key"])
     if already_exists
       book = already_exists
+      book.touch
     else
-      book.save
+      book = Book.retrieve(params["book_key"])
     end
-    render json: book
+    book.users << current_user
+    book.author = params["authors"]
+    book.save
+    render json: current_user.books.order(updated_at: :DESC)
   end
 end

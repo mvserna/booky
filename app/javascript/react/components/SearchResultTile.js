@@ -2,7 +2,7 @@ import React from "react"
 
 const SearchResultTile = (props) => {
   const { cover, title, authors } = props.book
-  const authorList = authors ? authors.join(", ") : ""
+  
 
   return(
     <div >
@@ -11,7 +11,7 @@ const SearchResultTile = (props) => {
       </div>
       <div className="search-result-body">
         <h4 className="search-result-title">{title}</h4>
-        <p className="search-result-author">by {authorList}</p>
+        <p className="search-result-author">by {authors}</p>
       </div>
     </div>
   )

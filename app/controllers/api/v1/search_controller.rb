@@ -1,7 +1,12 @@
 class Api::V1::SearchController < ApplicationController
   def create
-    # isbn = params["query_string"].match( /[0-9]{10,13}/ )[0]
-    search = Search.new(params["query_string"])
+    search = ""
+    isbn = params["query_string"].match( /[0-9,-]{10,13}/ )
+    if isbn
+      search = Edition.isbn(isbn[0])
+    else
+      search = Search.new(params["query_string"])
+    end
     results = search.results.take(24)
     results.map! do |work|
       {
@@ -11,8 +16,12 @@ class Api::V1::SearchController < ApplicationController
       cover: work["cover_i"]
       }
     end
-
-    render json: results
+    if isbn
+      editions = results
+      render json: editions
+    else
+      render json: results
+    end
   end
 
   def show

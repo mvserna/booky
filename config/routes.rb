@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :books, only: [:index, :create]
       resources :search, only: [:show, :create]
+      post "/search/:id", to: "search#show"
       resources :users, only: :index
     end
   end

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import * as AntDesign from "react-icons/ai"
 import { Redirect, useLocation } from "react-router-dom"
-import NavBar from "./NavBar"
-
 
 const SearchBar = (props) => {
   const { search, setSearch } = props
 
   const url = useLocation()
 
-  if (search.redirect && url.pathname !== "/search") {
+  if (search.redirect && !url.pathname.includes("/search/")) {
+    return <Redirect push to={`/search/${search.query}`} />
+  } else if (search.redirect && url.pathname != "/search") {
     return <Redirect push to="/search" />
   } else if (search.redirect && url.pathname === "/search") {
       setSearch({
@@ -28,13 +28,16 @@ const SearchBar = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    // const isbn = search.query.match( /[0-9]{10,13}/ )[0]
-    // const path = isbn ? `/api/v1/search/${isbn}` : ""
+    const isbn = search.query.match( /[0-9,-]{10,13}/ )
+    let path = "/api/v1/search"
+    if (isbn) {
+      path = `/api/v1/search/${isbn[0]}`
+    }
     const payload = JSON.stringify({
       query_string: search.query
     })
     try {
-      const response = await fetch("/api/v1/search", {
+      const response = await fetch(path, {
         method: "POST",
         body: payload,
         headers: {
